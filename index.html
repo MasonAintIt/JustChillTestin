@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Manager Plus - Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Dashicons replacement with Font Awesome */
+    .dashicons {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .dashicons-sun::before { content: "\f185"; }
+    .dashicons-moon::before { content: "\f186"; }
+    .dashicons-dashboard::before { content: "\f3fd"; }
+    .dashicons-admin-generic::before { content: "\f013"; }
+    .dashicons-products::before { content: "\f468"; }
+    .dashicons-chart-bar::before { content: "\f080"; }
+    .dashicons-arrow-up-alt::before { content: "\f062"; }
+    .dashicons-arrow-down-alt::before { content: "\f063"; }
+    .dashicons-admin-users::before { content: "\f0c0"; }
+    .dashicons-cart::before { content: "\f07a"; }
+    .dashicons-money::before { content: "\f155"; }
+    .dashicons-warning::before { content: "\f071"; }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- Theme Toggle -->
+  <div class="imp-theme-toggle" onclick="toggleTheme()">
+    <span class="dashicons dashicons-sun"></span>
+    <span class="dashicons dashicons-moon"></span>
+  </div>
+
+  <div class="imp-container">
+    <!-- Header -->
+    <div class="imp-header">
+      <h1>Inventory Manager Plus</h1>
+      <div class="imp-actions">
+        <button class="button button-primary">Add Product</button>
+        <button class="button">Export Data</button>
+      </div>
+    </div>
+
+    <!-- Admin Tabs -->
+    <ul class="imp-admin-tabs">
+      <li class="active"><a href="#dashboard" onclick="showTab('dashboard')">Dashboard</a></li>
+      <li><a href="#products" onclick="showTab('products')">Products</a></li>
+      <li><a href="#reports" onclick="showTab('reports')">Reports</a></li>
+      <li><a href="#settings" onclick="showTab('settings')">Settings</a></li>
+    </ul>
+
+    <!-- Dashboard Tab -->
+    <div id="dashboard-tab" class="tab-content">
+      <!-- Success Notice -->
+      <div class="imp-notice imp-notice-success">
+        <span class="dashicons dashicons-admin-generic"></span>
+        <p>System updated successfully! All inventory data has been synchronized.</p>
+      </div>
+
+      <!-- Dashboard Cards -->
+      <div class="imp-dashboard-cards">
+        <!-- Metrics Grid -->
+        <div class="imp-card">
+          <h3><span class="dashicons dashicons-chart-bar"></span>Key Metrics</h3>
+          <div class="imp-metric-grid">
+            <div class="imp-metric imp-metric-primary">
+              <div class="label">
+                <span class="dashicons dashicons-products"></span>
+                Total Products
+              </div>
+              <div class="value">1,247</div>
+              <div class="trend positive">
+                <span class="dashicons dashicons-arrow-up-alt"></span>
+                +12%
+              </div>
+            </div>
+            <div class="imp-metric imp-metric-success">
+              <div class="label">
+                <span class="dashicons dashicons-cart"></span>
+                Total Orders
+              </div>
+              <div class="value">3,891</div>
+              <div class="trend positive">
+                <span class="dashicons dashicons-arrow-up-alt"></span>
+                +8%
+              </div>
+            </div>
+            <div class="imp-metric imp-metric-info">
+              <div class="label">
+                <span class="dashicons dashicons-money"></span>
+                Revenue
+              </div>
+              <div class="value">$52,340</div>
+              <div class="trend negative">
+                <span class="dashicons dashicons-arrow-down-alt"></span>
+                -3%
+              </div>
+            </div>
+            <div class="imp-metric imp-metric-warning">
+              <div class="label">
+                <span class="dashicons dashicons-warning"></span>
+                Low Stock
+              </div>
+              <div class="value">23</div>
+              <div class="trend positive">
+                <span class="dashicons dashicons-arrow-up-alt"></span>
+                +5
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="imp-card">
+          <h3><span class="dashicons dashicons-chart-bar"></span>Sales Overview</h3>
+          <div class="imp-chart-container">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Top Products -->
+        <div class="imp-card imp-card-wide">
+          <h3><span class="dashicons dashicons-products"></span>Top Selling Products</h3>
+          <div class="imp-top-products">
+            <div class="imp-table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>SKU</th>
+                    <th>Units Sold</th>
+                    <th>Revenue</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Wireless Bluetooth Headphones</td>
+                    <td>WBH-001</td>
+                    <td>245</td>
+                    <td>$12,250</td>
+                    <td>
+                      <button class="button button-icon">
+                        <span class="dashicons dashicons-admin-generic"></span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Smart Phone Case</td>
+                    <td>SPC-002</td>
+                    <td>189</td>
+                    <td>$3,780</td>
+                    <td>
+                      <button class="button button-icon">
+                        <span class="dashicons dashicons-admin-generic"></span>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>USB-C Charging Cable</td>
+                    <td>UCC-003</td>
+                    <td>156</td>
+                    <td>$2,340</td>
+                    <td>
+                      <button class="button button-icon">
+                        <span class="dashicons dashicons-admin-generic"></span>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Tab -->
+    <div id="products-tab" class="tab-content" style="display: none;">
+      <div class="imp-form-container">
+        <h2><span class="dashicons dashicons-products"></span>Add New Product</h2>
+        <form class="imp-form">
+          <table class="form-table">
+            <tr>
+              <th scope="row">Product Name</th>
+              <td>
+                <input type="text" name="product_name" placeholder="Enter product name" />
+                <p>The display name for your product</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">SKU</th>
+              <td>
+                <input type="text" name="sku" placeholder="e.g., PRD-001" />
+                <p>Unique product identifier</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td>
+                <input type="number" name="price" step="0.01" placeholder="0.00" />
+                <p>Product price in USD</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Stock Quantity</th>
+              <td>
+                <input type="number" name="stock" placeholder="0" />
+                <p>Available inventory count</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Category</th>
+              <td>
+                <select name="category">
+                  <option value="">Select category</option>
+                  <option value="electronics">Electronics</option>
+                  <option value="clothing">Clothing</option>
+                  <option value="books">Books</option>
+                  <option value="home">Home & Garden</option>
+                </select>
+                <p>Product category for organization</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Description</th>
+              <td>
+                <textarea name="description" rows="4" placeholder="Enter product description"></textarea>
+                <p>Detailed product description</p>
+              </td>
+            </tr>
+          </table>
+          <button type="submit" class="button-primary">Add Product</button>
+          <button type="button" class="button">Cancel</button>
+        </form>
+      </div>
+
+      <!-- Product List -->
+      <div class="imp-table-container">
+        <h3><span class="dashicons dashicons-products"></span>Product Inventory</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Product Name</th>
+              <th>SKU</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wireless Bluetooth Headphones</td>
+              <td>WBH-001</td>
+              <td>$49.99</td>
+              <td>150</td>
+              <td>Electronics</td>
+              <td>Active</td>
+              <td>
+                <button class="button">Edit</button>
+                <button class="button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Smart Phone Case</td>
+              <td>SPC-002</td>
+              <td>$19.99</td>
+              <td>8</td>
+              <td>Electronics</td>
+              <td>Low Stock</td>
+              <td>
+                <button class="button">Edit</button>
+                <button class="button">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>USB-C Charging Cable</td>
+              <td>UCC-003</td>
+              <td>$14.99</td>
+              <td>0</td>
+              <td>Electronics</td>
+              <td>Out of Stock</td>
+              <td>
+                <button class="button">Edit</button>
+                <button class="button">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reports Tab -->
+    <div id="reports-tab" class="tab-content" style="display: none;">
+      <div class="imp-card">
+        <h3><span class="dashicons dashicons-chart-bar"></span>Sales Reports</h3>
+        <div class="imp-chart-container">
+          <p style="text-align: center; padding: 4rem; color: var(--imp-text-muted);">
+            Reports functionality would be implemented here with various charts and analytics.
+          </p>
+        </div>
+      </div>
+
+      <!-- Warning Notice -->
+      <div class="imp-notice imp-notice-warning">
+        <span class="dashicons dashicons-warning"></span>
+        <p>Some reports may take longer to generate during peak hours.</p>
+      </div>
+    </div>
+
+    <!-- Settings Tab -->
+    <div id="settings-tab" class="tab-content" style="display: none;">
+      <div class="imp-form-container">
+        <h2><span class="dashicons dashicons-admin-generic"></span>System Settings</h2>
+        <form class="imp-form">
+          <table class="form-table">
+            <tr>
+              <th scope="row">Company Name</th>
+              <td>
+                <input type="text" name="company_name" value="Inventory Manager Plus" />
+                <p>Your company or store name</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Default Currency</th>
+              <td>
+                <select name="currency">
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="JPY">JPY (¥)</option>
+                </select>
+                <p>Default currency for pricing</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Low Stock Threshold</th>
+              <td>
+                <input type="number" name="low_stock" value="10" />
+                <p>Alert when stock falls below this number</p>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Email Notifications</th>
+              <td>
+                <label>
+                  <input type="checkbox" name="email_notifications" checked />
+                  Enable email notifications for low stock alerts
+                </label>
+              </td>
+            </tr>
+          </table>
+          <button type="submit" class="button-primary">Save Settings</button>
+          <button type="button" class="button">Reset to Defaults</button>
+        </form>
+      </div>
+
+      <!-- Info Notice -->
+      <div class="imp-notice imp-notice-info">
+        <span class="dashicons dashicons-admin-generic"></span>
+        <p>Settings will be applied immediately after saving. Some changes may require a page refresh.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
